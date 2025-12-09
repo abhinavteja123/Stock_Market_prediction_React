@@ -18,7 +18,7 @@ services:
   - type: web
     name: stock-market-frontend
     runtime: static
-    buildCommand: cd frontend && npm install --legacy-peer-deps && chmod +x ./node_modules/.bin/vite && npx vite build
+    buildCommand: cd frontend && rm -rf package-lock.json node_modules && npm install --legacy-peer-deps && npx vite build
     staticPublishPath: frontend/dist
     pullRequestPreviewsEnabled: true
     envVars:

@@ -98,18 +98,18 @@ Root Directory: frontend
 
 **Build & Deploy:**
 ```
-Build Command: npm install --legacy-peer-deps && chmod +x ./node_modules/.bin/vite && npx vite build
+Build Command: rm -rf package-lock.json node_modules && npm install --legacy-peer-deps && npx vite build
 Publish Directory: dist
 ```
 
-**Important:** The `chmod +x` command makes the vite binary executable before running it.
+**Important:** Removing `package-lock.json` and `node_modules` before install fixes npm's optional dependency bug with rollup.
 
 **Alternative Build Commands (if above fails):**
 ```
-Option 1: npm install --legacy-peer-deps && npm run build
-Option 2: npm ci --legacy-peer-deps && chmod +x ./node_modules/.bin/vite && npx vite build
-Option 3: npm install && node ./node_modules/vite/bin/vite.js build
-Option 4: npm install --legacy-peer-deps && node_modules/.bin/vite build
+Option 1: npm ci --legacy-peer-deps && npx vite build
+Option 2: rm -rf node_modules && npm install && npx vite build
+Option 3: npm install --legacy-peer-deps && npm run build
+Option 4: npm install && node ./node_modules/vite/bin/vite.js build
 ```
 
 ### 4. Environment Variables

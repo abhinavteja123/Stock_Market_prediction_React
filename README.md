@@ -91,7 +91,7 @@ This project uses a **separate frontend and backend deployment** architecture.
    ```
    Name: stock-market-frontend
    Root Directory: frontend
-   Build Command: npm install --legacy-peer-deps && chmod +x ./node_modules/.bin/vite && npx vite build
+   Build Command: rm -rf package-lock.json node_modules && npm install --legacy-peer-deps && npx vite build
    Publish Directory: dist
    Environment Variable: VITE_API_URL=<your-backend-url>
    ```
