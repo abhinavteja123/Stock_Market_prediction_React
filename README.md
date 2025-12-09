@@ -1,43 +1,49 @@
-# Stock Market Prediction React App
+# 📈 Stock Market Prediction App
 
-A full-stack machine learning application for stock market predictions with an interactive React frontend and FastAPI backend.
+A full-stack machine learning application for stock market analysis and predictions with an interactive React frontend and FastAPI backend.
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com)
 
+🔗 **Live Demo:** https://stock-market-prediction-frontend.onrender.com/
 
-LINK :https://stock-market-prediction-frontend.onrender.com/
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![React](https://img.shields.io/badge/React-18-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Latest-green)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-## 🚀 Features
+## ✨ Features
 
-- 📈 Real-time stock data fetching using Yahoo Finance
-- 🤖 Machine learning predictions with scikit-learn and XGBoost
-- 📊 Interactive data visualization using Plotly
-- ⚡ Fast and modern React UI with Vite
-- 🎨 Responsive design for all devices
-- 🔄 REST API with FastAPI
+- 📊 **Real-time Stock Analysis** - Fetch and analyze stock data using Yahoo Finance
+- 🤖 **ML Predictions** - Multiple machine learning models (LSTM, XGBoost, Random Forest)
+- 📈 **Interactive Charts** - Beautiful visualizations with Plotly
+- ⚡ **Fast & Modern** - React + Vite for lightning-fast UI
+- 🎨 **Responsive Design** - Works seamlessly on all devices
+- 🔒 **REST API** - Secure and scalable FastAPI backend
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **React** - UI Framework
-- **Vite** - Build tool
-- **Plotly** - Data visualization
-- **Tailwind CSS** - Styling
+- React 18
+- Vite 5
+- Plotly.js
+- Tailwind CSS
+- Framer Motion
 
 ### Backend
-- **FastAPI** - Python web framework
-- **Uvicorn** - ASGI server
-- **scikit-learn** - Machine learning
-- **XGBoost** - Gradient boosting
-- **yfinance** - Stock data API
-- **pandas** & **numpy** - Data processing
+- FastAPI
+- Python 3.11
+- scikit-learn
+- XGBoost
+- TensorFlow/Keras
+- yfinance
+- pandas & numpy
 
-## 📦 Installation
+## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.11+
-- Node.js 16+
-- npm or yarn
+- Node.js 18+
+- npm
 
 ### Local Development
 
@@ -52,73 +58,40 @@ cd Stock_Market_prediction_React
 # Install Python dependencies
 pip install -r requirements.txt
 
-# Run the FastAPI server
+# Run the server
 uvicorn server:app --reload
 ```
-The backend will be available at `http://localhost:8000`
+Backend runs at `http://localhost:8000`
 
-3. **Frontend Setup** (in a new terminal)
+3. **Frontend Setup**
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-The frontend will be available at `http://localhost:5173`
+Frontend runs at `http://localhost:5173`
 
 ## 🌐 Deployment on Render
 
-This project uses a **separate frontend and backend deployment** architecture.
+Deploy using the included `render.yaml` blueprint:
 
-### Deployment Architecture:
-- **Backend (FastAPI)**: Web Service
-- **Frontend (React)**: Static Site
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com)
 
-### Quick Deploy - Option 1: Separate Services (Recommended)
+### Manual Deployment
 
-#### Deploy Backend:
-1. Go to [Render Dashboard](https://dashboard.render.com/)
-2. New + → **Web Service**
-3. Connect GitHub repository
-4. Configure:
-   ```
-   Name: stock-market-api
-   Environment: Python 3
-   Build Command: pip install -r requirements.txt
-   Start Command: uvicorn server:app --host 0.0.0.0 --port $PORT
-   ```
+**Backend (Web Service):**
+```bash
+Build: pip install -r requirements.txt
+Start: uvicorn server:app --host 0.0.0.0 --port $PORT
+```
 
-#### Deploy Frontend:
-1. New + → **Static Site**
-2. Connect same GitHub repository
-3. Configure:
-   ```
-   Name: stock-market-frontend
-   Root Directory: frontend
-   Build Command: rm -rf package-lock.json node_modules && npm install --legacy-peer-deps && npx vite build
-   Publish Directory: dist
-   Environment Variable: VITE_API_URL=<your-backend-url>
-   ```
-
-### Quick Deploy - Option 2: Combined (Single Service)
-
-For a simpler deployment where FastAPI serves the React build:
-
-1. Create **Web Service**
-2. Configure:
-   ```
-   Name: stock-market-prediction
-   Environment: Python 3
-   Build Command: chmod +x build.sh && ./build.sh
-   Start Command: uvicorn server:app --host 0.0.0.0 --port $PORT
-   ```
-
-📖 **See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed step-by-step instructions**
-
-### Important Notes:
-- Separate deployment offers better scalability
-- Combined deployment is simpler but less flexible
-- Free tier on Render may have cold starts
-- Update CORS settings in `server.py` with your frontend URL
+**Frontend (Static Site):**
+```bash
+Root Directory: frontend
+Build: rm -rf package-lock.json node_modules && npm install --legacy-peer-deps && npx vite build
+Publish: dist
+Env Variable: VITE_API_URL=<your-backend-url>
+```
 
 ## 📁 Project Structure
 
@@ -127,71 +100,69 @@ Stock_Market_prediction_React/
 ├── frontend/              # React application
 │   ├── src/
 │   │   ├── components/   # React components
-│   │   ├── App.jsx       # Main App component
+│   │   ├── App.jsx       # Main App
 │   │   └── main.jsx      # Entry point
-│   ├── package.json
-│   └── vite.config.js
-├── server.py             # FastAPI backend server
-├── graph.py              # ML models and predictions
+│   └── package.json
+├── server.py             # FastAPI backend
+├── graph.py              # ML models & predictions
 ├── requirements.txt      # Python dependencies
-├── build.sh             # Build script for Render
-├── runtime.txt          # Python version specification
-├── .gitignore           # Git ignore rules
-└── README.md            # This file
+├── runtime.txt          # Python version
+├── render.yaml          # Render deployment config
+└── README.md
 ```
 
-## 🔧 Configuration Files
+## 🎯 Usage
 
-### `build.sh`
-Automated build script that:
-- Installs Python dependencies
-- Builds the React frontend
-- Prepares the application for deployment
+1. Open the app in your browser
+2. Enter a stock symbol (e.g., `AAPL`, `GOOGL`, `TSLA`)
+3. Configure analysis parameters:
+   - Date range
+   - Validation split
+   - Model epochs
+   - Batch size
+4. Click **Analyze** to view predictions and visualizations
 
-### `requirements.txt`
-Python dependencies including:
-- FastAPI, uvicorn
-- ML libraries (scikit-learn, xgboost)
-- Data processing (pandas, numpy, yfinance)
+## 🌐 Deployment
 
-### `runtime.txt`
-Specifies Python version: `python-3.11.0`
+Deploy using the included `render.yaml` blueprint or manually:
 
-## 🧪 API Endpoints
+**Backend (Web Service):**
+```bash
+Build: pip install -r requirements.txt
+Start: uvicorn server:app --host 0.0.0.0 --port $PORT
+```
 
-- `GET /` - Serves the React frontend
-- `POST /predict` - Stock prediction endpoint
-- `GET /health` - Health check endpoint
+**Frontend (Static Site):**
+```bash
+Build: rm -rf package-lock.json node_modules && npm install --legacy-peer-deps && npx vite build
+Publish: dist
+Env: VITE_API_URL=<backend-url>
+```
 
-## 📝 Usage
+## 📊 API Endpoints
 
-1. Open the application in your browser
-2. Enter a stock ticker symbol (e.g., AAPL, GOOGL, MSFT)
-3. View historical data and predictions
-4. Analyze the interactive charts
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/` | Serve frontend |
+| POST | `/analyze` | Stock analysis & predictions |
+| GET | `/docs` | API documentation |
 
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## 📄 License
 
-This project is licensed under the MIT License.
+MIT License - see LICENSE file for details
 
 ## 👤 Author
 
 **Abhinav Teja**
 - GitHub: [@abhinavteja123](https://github.com/abhinavteja123)
 
-## 🙏 Acknowledgments
+---
 
-- Yahoo Finance for stock data API
+⭐ **Star this repo if you find it helpful!**
 - Render for hosting platform
 - FastAPI and React communities
 
