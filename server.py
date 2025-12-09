@@ -13,9 +13,13 @@ import graph  # Importing the provided logic
 app = FastAPI()
 
 # Enable CORS
+# Update allow_origins with your actual frontend URL after deployment
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "*",  # Allow all origins - Update this to your frontend URL for production
+        # "https://your-frontend.onrender.com",  # Example: Add your actual frontend URL
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

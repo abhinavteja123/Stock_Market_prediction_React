@@ -5,6 +5,9 @@ import { LoadingView } from './components/sections/LoadingView';
 import { DashboardView } from './components/sections/DashboardView';
 import { AnimatePresence } from 'framer-motion';
 
+// API Configuration - uses environment variable or falls back to localhost
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 function App() {
     // Config State
     const [config, setConfig] = useState({
@@ -40,7 +43,7 @@ function App() {
         setTimeout(() => { addLog(`OPTIMIZING HYPERPARAMETERS...`); setProgress(85); }, 4500);
 
         try {
-            const response = await fetch('http://localhost:8000/analyze', {
+            const response = await fetch(`${API_URL}/analyze`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
