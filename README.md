@@ -2,8 +2,6 @@
 
 A full-stack machine learning application for stock market analysis and predictions with an interactive React frontend and FastAPI backend.
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com)
-
 🔗 **Live Demo:** https://stock-market-prediction-frontend.onrender.com/
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
