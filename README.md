@@ -64,17 +64,44 @@ The frontend will be available at `http://localhost:5173`
 
 ## 🌐 Deployment on Render
 
-### Quick Deploy Steps:
+This project uses a **separate frontend and backend deployment** architecture.
 
-1. **Fork/Push to GitHub**
-   - Ensure your code is pushed to GitHub
+### Deployment Architecture:
+- **Backend (FastAPI)**: Web Service
+- **Frontend (React)**: Static Site
 
-2. **Create Web Service on Render**
-   - Go to [Render Dashboard](https://dashboard.render.com/)
-   - Click "New +" → "Web Service"
-   - Connect your GitHub repository
+### Quick Deploy - Option 1: Separate Services (Recommended)
 
-3. **Configure Service**
+#### Deploy Backend:
+1. Go to [Render Dashboard](https://dashboard.render.com/)
+2. New + → **Web Service**
+3. Connect GitHub repository
+4. Configure:
+   ```
+   Name: stock-market-api
+   Environment: Python 3
+   Build Command: pip install -r requirements.txt
+   Start Command: uvicorn server:app --host 0.0.0.0 --port $PORT
+   ```
+
+#### Deploy Frontend:
+1. New + → **Static Site**
+2. Connect same GitHub repository
+3. Configure:
+   ```
+   Name: stock-market-frontend
+   Root Directory: frontend
+   Build Command: npm install --legacy-peer-deps && chmod +x ./node_modules/.bin/vite && npx vite build
+   Publish Directory: dist
+   Environment Variable: VITE_API_URL=<your-backend-url>
+   ```
+
+### Quick Deploy - Option 2: Combined (Single Service)
+
+For a simpler deployment where FastAPI serves the React build:
+
+1. Create **Web Service**
+2. Configure:
    ```
    Name: stock-market-prediction
    Environment: Python 3
@@ -82,14 +109,13 @@ The frontend will be available at `http://localhost:5173`
    Start Command: uvicorn server:app --host 0.0.0.0 --port $PORT
    ```
 
-4. **Deploy**
-   - Click "Create Web Service"
-   - Render will automatically build and deploy your app
+📖 **See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed step-by-step instructions**
 
 ### Important Notes:
-- The `build.sh` script handles both backend and frontend builds
-- Frontend is built into `frontend/dist` and served by FastAPI
+- Separate deployment offers better scalability
+- Combined deployment is simpler but less flexible
 - Free tier on Render may have cold starts
+- Update CORS settings in `server.py` with your frontend URL
 
 ## 📁 Project Structure
 

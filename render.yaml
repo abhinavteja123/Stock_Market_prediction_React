@@ -1,0 +1,29 @@
+# Render Blueprint for Stock Market Prediction App
+# This file enables one-click deployment on Render
+
+services:
+  # Backend API Service
+  - type: web
+    name: stock-market-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    healthCheckPath: /docs
+
+  # Frontend Static Site
+  - type: web
+    name: stock-market-frontend
+    runtime: static
+    buildCommand: cd frontend && npm install --legacy-peer-deps && chmod +x ./node_modules/.bin/vite && npx vite build
+    staticPublishPath: frontend/dist
+    pullRequestPreviewsEnabled: true
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: stock-market-api
+          property: url
