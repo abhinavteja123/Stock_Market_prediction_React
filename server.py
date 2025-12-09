@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 import json
 from datetime import datetime, timedelta
+from pathlib import Path
 import graph  # Importing the provided logic
 
 app = FastAPI()
@@ -20,8 +21,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# Mount the React build folder as static files
+frontend_dist = Path(__file__).parent / "frontend" / "dist"
+if frontend_dist.exists():
+    app.mount("/assets", StaticFiles(directory=str(frontend_dist / "assets")), name="assets")
 
 class AnalysisRequest(BaseModel):
     symbol: str
@@ -32,10 +35,13 @@ class AnalysisRequest(BaseModel):
     start_date: str = ""
     end_date: str = ""
 
-# Serve index.html
+# Serve React app
 @app.get("/", response_class=FileResponse)
 async def read_root():
-    return FileResponse("static/index.html")
+    index_path = frontend_dist / "index.html"
+    if index_path.exists():
+        return FileResponse(str(index_path))
+    return {"message": "Frontend not built. Run: cd frontend && npm run build"}
 
 @app.post("/analyze")
 async def analyze_stock(request: AnalysisRequest):
